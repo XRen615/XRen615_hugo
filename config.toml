@@ -1,0 +1,24 @@
+BaseUrl= "http://xren615.github.io/"
+LanguageCode= "en-US"
+Title= "Square Inch"
+#paginate = 5
+DisqusShortname = "Rick Ren"
+Copyright = "All rights reserved - 2016"
+canonifyurls = true
+theme = "hugo-theme-air"
+
+[params]
+  description = "收古今絕藝置我山窗"
+  cover = "images/03928.jpg"
+  author = "X.Ren"
+  authorlocation = "Nederland"
+  authorwebsite = "https://rickren615.github.io"
+  bio= "收古今絕藝置我山窗"
+  logo = "images/V.png"
+  # googleAnalyticsUserID = "UA-64985747-4"
+  # Optional RSS-Link, if not provided it defaults to the standard index.xml
+  # RSSLink = "http://feedly.com/i/subscription/feed/https://syui.github.io/atom.xml"
+  githubName = "rickren615"
+  # twitterName = "syui__"
+  # set true if you are not proud of using Hugo (true will hide the footer note "Proudly published with HUGO.....")
+  hideHUGOSupport = false
