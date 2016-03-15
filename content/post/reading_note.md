@@ -12,9 +12,7 @@ title = "Reading Note: Building machine learning systems with python"
 
 +++
 
-#### Reading Note: Building machine learning systems with python  
-
-(**I would like take this chance to somehow systemize my knowledge on machine learning system**)
+( *I would like to take this oppurtunity to somehow review and systemize my knowledge on machine learning system.* )
 
 “This book will give you a broad overview of what types of learning algorithms are currently most used in the diverse fields of machine learning, and where to watch out when applying them.”
 
@@ -79,3 +77,12 @@ Another big advantage of NumPy arrays is that the **operations** are propagated 
 
 ##### Learning SciPy  
 
+On top of the efficient data structures of NumPy, SciPy offers a magnitude of **algorithms** working on those arrays. Whatever numerical heavy algorithm you take from current books on numerical recipes, most likely you will find support for them in SciPy in one way or the other. Whether it is matrix manipulation, linear algebra, optimization, clustering, spatial operations, or even fast Fourier transformation, the toolbox is readily filled.  
+
+SciPy's polyfit() function: Given data x and y and the desired order of the polynomial, it finds the model function that minimizes the error function.  
+
+	fp1 = sp.polyfit(x, y, 1)
+We then use poly1d() to create a model function from the model parameters:  
+
+	f1 = sp.poly1d(fp1)  
+	
