@@ -6,7 +6,7 @@ draft = false
 image = ""
 menu = ""
 share = true
-slug = "post-title"
+slug = "edge_detection"
 tags = ["Edge detection", "Signal processing","Master thesis"]
 title = "Edge detection of energy consumption signal with Gaussian filter"
 
@@ -117,5 +117,18 @@ Finished a demo of auto edge detection in our elec. consumption record, which co
 <div  align="center">    
 <img src="http://7xro3y.com1.z0.glb.clouddn.com/edge_Gassuian_scale_space.png" width = "600" height = "400"/>  
 </div> 
+
+#### Reference  
+
+- [Scale Space wiki](https://en.wikipedia.org/wiki/Scale_space) 
+
+- [Gaussian Blur Algorithm](http://www.ruanyifeng.com/blog/2012/11/gaussian_blur.html)  
+
+- [OpenCV Canny Edge Detector](http://opencv-python-tutroals.readthedocs.org/en/latest/py_tutorials/py_imgproc/py_canny/py_canny.html)  
+
+- [UNC Edge Detector 1D](http://www.cs.unc.edu/~nanowork/cismm/download/edgedetector/)  
+
+- [scikit-image Canny edge detector](http://scikit-image.org/docs/dev/auto_examples/edges/plot_canny.html#example-edges-plot-canny-py)
+
 
 

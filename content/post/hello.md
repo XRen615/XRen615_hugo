@@ -7,7 +7,7 @@ draft = false
 image = ""
 menu = ""
 share = true
-slug = ""
+slug = "helloworld"
 tags = ["site maintenance"]
 title = "Hello_World"
 +++

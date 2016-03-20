@@ -6,7 +6,7 @@ draft = false
 image = ""
 menu = ""
 share = true
-slug = ""
+slug = "feature_reducing"
 tags = ["data science"]
 title = "特征选择"
 

@@ -6,7 +6,7 @@ draft = false
 image = ""
 menu = ""
 share = true
-slug = ""
+slug = "reading_note1"
 tags = ["Machine learning", "reading notes"]
 title = "Reading Note: Building machine learning systems with python"
 
@@ -79,10 +79,31 @@ Another big advantage of NumPy arrays is that the **operations** are propagated 
 
 On top of the efficient data structures of NumPy, SciPy offers a magnitude of **algorithms** working on those arrays. Whatever numerical heavy algorithm you take from current books on numerical recipes, most likely you will find support for them in SciPy in one way or the other. Whether it is matrix manipulation, linear algebra, optimization, clustering, spatial operations, or even fast Fourier transformation, the toolbox is readily filled.  
 
-SciPy's polyfit() function: Given data x and y and the desired order of the polynomial, it finds the model function that minimizes the error function.  
+SciPy's polyfit() function: Given data x and y and the desired n order of the polynomial, it finds the model function that minimizes the error function.  
 
-	fp1 = sp.polyfit(x, y, 1)
+	fp1 = sp.polyfit(x, y, n)
 We then use poly1d() to create a model function from the model parameters:  
 
 	f1 = sp.poly1d(fp1)  
-	
+
+we should be awared that with the increase of n, here comes a problem called **Overfitting**.  
+
+Consider **piecewise function (分段函数)** against higher order functions
+
+why do we trust the straight line fitted only at the last week of our data more than any of the more complex models? It is because we assume that it will capture future data better.  
+
+“switching your mental focus from algorithms to data. ”  
+
+### Chapter 2. Classifying with Real-world Examples  
+
+Cross validation:  
+
+- k-fold  
+- leave one fold for test every time  
+- Average the errors  
+- gives you an estimate of how well this model should generalize and whether your methods are doing well. At the end of the cross-validation loop, you can then use **all your data** to train a final model.  
+
+交叉验证的作用在于evaluate一种模型的预期指标，cv后便可以利用全部数据（不用分测试集和训练集）来训练最终的模型参数。  
+
+'Accuracy' is not always our goal: What the gain/cost function should be is always dependent on the exact problem you are working on. When we present a general-purpose algorithm, we often focus on minimizing the number of mistakes, achieving the highest accuracy. However, if some mistakes are **costlier** than others, it might be better to accept a lower overall accuracy to minimize the overall costs.  
+

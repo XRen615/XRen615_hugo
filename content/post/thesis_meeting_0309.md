@@ -2,14 +2,14 @@
 date = "2016-03-08T19:19:22+01:00"
 description = "master thesis progress record"
 keywords = []
-title = "Thesis Meeting 0309"
+title = "Data Mining Project for Rosendal Passive House Database"
 author = "X.Ren"
 comments = true
 draft = false
 image = ""
 menu = ""
 share = true
-slug = ""
+slug = "meeting0309"
 tags = ["master thesis"]
 
 +++

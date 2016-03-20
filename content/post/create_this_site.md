@@ -6,7 +6,7 @@ draft = false
 image = ""
 menu = ""
 share = true
-slug = ""
+slug = "develope_this_site"
 tags = ["site maintenance"]
 title = "建站記錄"
 +++
@@ -33,7 +33,9 @@ Graphics: Intel Iris Graphics 6100 1536 MB
 - Change the social icon: Social links are designed with [FontAwesome 4.5.0](https://fortawesome.github.io/Font-Awesome/). For occasional modification, just edit the *header.html*, find:  
 > *class="fa fa-xxx"*   
 substitute *xxx* with the icon name you want (and ofc supported by FontAwesome), do not touch .Site.Params.xxx if you just want it simple.  
-- If you are not familiar with *markdown*, find the instruction regarding markdown syntax [here](http://www.jianshu.com/p/q81RER).
+- If you are not familiar with *markdown*, find the instruction regarding markdown syntax [here](http://www.jianshu.com/p/q81RER).  
+- Develope comment board with disqus: register a short name then fill it in the config file
+
 
 ### Paste some frequently-used order here:)  
 

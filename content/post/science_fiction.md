@@ -9,7 +9,7 @@ draft = false
 image = ""
 menu = ""
 share = true
-slug = ""
+slug = "scifi_chn"
 tags = ["literature"]
 
 +++
