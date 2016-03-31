@@ -14,6 +14,8 @@ title = "Reading Note: Building machine learning systems with python"
 
 ( *I would like to take this oppurtunity to somehow review and systemize my knowledge on machine learning system.* )
 
+### Chapter 1. Introduction  
+
 “This book will give you a broad overview of what types of learning algorithms are currently most used in the diverse fields of machine learning, and where to watch out when applying them.”
 
 typical workflow:  
@@ -106,4 +108,14 @@ Cross validation:
 交叉验证的作用在于evaluate一种模型的预期指标，cv后便可以利用全部数据（不用分测试集和训练集）来训练最终的模型参数。  
 
 'Accuracy' is not always our goal: What the gain/cost function should be is always dependent on the exact problem you are working on. When we present a general-purpose algorithm, we often focus on minimizing the number of mistakes, achieving the highest accuracy. However, if some mistakes are **costlier** than others, it might be better to accept a lower overall accuracy to minimize the overall costs.  
+
+compactness feature is not actually a new measurement, but a function of the previous two features, area and perimeter. It is often very useful to derive new combined features. Trying to create new features is generally called **feature engineering**.  
+
+与现有数据用某种函数关系关联起来的新数据并不一定是没有意义的，比如用周长和面积定义的『圆度』在特征工程中就有重要的意义。  
+
+The goals of a good feature are to simultaneously **vary with what matters** (the desired output) and be **invariant with what does not**. For example, compactness does not vary with size, but varies with the shape - **use background knowledge to design good features**  
+
+the **nearest neighbor classifier**: When classifying a new element, it looks at the training data for the object that is closest to it, its nearest neighbor. Then, it returns its label as the answer.  
+
+  
 

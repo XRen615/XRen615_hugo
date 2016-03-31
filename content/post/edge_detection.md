@@ -61,7 +61,7 @@ Effect:
 
 **Gaussian derivative filter**  
 
-For noise smoothing and edge detection. In layman's words, replace each point by the weighted average of its neighbors, the weights come from ** the 1st detivative of Gaussian distribution**, then normalize the results. 
+For noise smoothing and edge detection. In layman's words, replace each point by the weighted average of its neighbors, the weights come from **the 1st detivative of Gaussian distribution**, then normalize the results. 
 
 <div  align="center">    
 <img src="http://7xro3y.com1.z0.glb.clouddn.com/1st_der_Gaussian.png" width = "200" height = "50"/>  
@@ -100,6 +100,12 @@ Finished a demo of auto edge detection in our elec. consumption record, which co
 <img src="http://7xro3y.com1.z0.glb.clouddn.com/pulsedemo.png" width = "620" height = "150"/>  
 </div>  
 
+**Gaussian filter smoothed (sigma = 8)**  
+
+<div  align="center">    
+<img src="http://7xro3y.com1.z0.glb.clouddn.com/smoothed.png" width = "620" height = "150"/>  
+</div>
+
 **1st derivative Gaussian filtered (sigma = 8)**  
 
 <div  align="center">    
@@ -117,6 +123,18 @@ Finished a demo of auto edge detection in our elec. consumption record, which co
 <div  align="center">    
 <img src="http://7xro3y.com1.z0.glb.clouddn.com/edge_Gassuian_scale_space.png" width = "600" height = "400"/>  
 </div> 
+
+#### Finer Tuning  
+
+In practice, we usually use different tailored tune strategies for the parameters to meet the specific requirements aroused by researchers. E.g. in this case the experts from built enviroment would like to filter out short-lived status (even they maybe quite significant in terms of pulse number). The strategies is carefully increase sigma (widen your weighted average bracket, so the short peaks would be less significant after Gaussian filter) and also properly increase the threshold (so the deravatives of smoothed short peaks would not pass and be recognised as one effective operation) to a optimized combination, so that the results would be something like this:  
+
+**Edge position detected (Sigma = 10, threshold = 0.35 * global min/max)**  
+
+<div  align="center">    
+<img src="http://7xro3y.com1.z0.glb.clouddn.com/finertune.png" width = "620" height = "150"/>  
+</div> 
+
+
 
 #### Reference  
 
