@@ -8,7 +8,7 @@ menu = ""
 share = true
 slug = "edge_detection"
 tags = ["Edge detection", "Signal processing","Master thesis"]
-title = "Edge detection of energy consumption signal with Gaussian filter"
+title = "Guassian-filter-based "
 
 +++
 
@@ -52,9 +52,12 @@ For noise smoothing or "image blur". In layman's words, replace each point by th
 
 ![Gaussian](http://7xro3y.com1.z0.glb.clouddn.com/gaussian.png)  
 
-(if you are dealing with 2d matrix (images), use 2-D Gaussian instead.)    
+(if you are dealing with 2d matrix (images), use 2-D Gaussian instead.)  
 
-![2dG](http://7xro3y.com1.z0.glb.clouddn.com/bg2012110708.png)  
+<div  align="center">    
+<img src="http://7xro3y.com1.z0.glb.clouddn.com/bg2012110708.png" width = "400" height = "300"/>  
+</div>   
+
 
 Effect:  
 ![](http://7xro3y.com1.z0.glb.clouddn.com/gblur.jpg)  
@@ -126,12 +129,18 @@ Finished a demo of auto edge detection in our elec. consumption record, which co
 
 #### Finer Tuning  
 
-In practice, we usually use different tailored tune strategies for the parameters to meet the specific requirements aroused by researchers. E.g. in this case the experts from built enviroment would like to filter out short-lived status (even they maybe quite significant in terms of pulse number). The strategies is carefully increase sigma (widen your weighted average bracket, so the short peaks would be less significant after Gaussian filter) and also properly increase the threshold (so the deravatives of smoothed short peaks would not pass and be recognised as one effective operation) to a optimized combination, so that the results would be something like this:  
+In practice, it is usually needed to use different tailored tune strategies for the parameters to meet the specific requirements aroused by researchers. E.g. in a case the experts from built enviroment would like to filter out short-lived status (even they maybe quite steep in terms of pulse number). The strategies is carefully increase sigma (by which you are flattening the Guassian curve, so the weights of center would be less significant so that the short peaks could be better wiped out by its flat neighbors) and also, properly increase the threshold would help (by which it would be more difficult for the deravatives of smoothed short peaks to pass the threshold and be recognised as one effective operation). Once the sigma and threshold reached an optimized combination, the results would be something like below for this case:  
 
 **Edge position detected (Sigma = 10, threshold = 0.35 * global min/max)**  
 
 <div  align="center">    
 <img src="http://7xro3y.com1.z0.glb.clouddn.com/finertune.png" width = "620" height = "150"/>  
+</div>  
+
+**In a larger scale, see how does our finely-tuned lazy filter work to filter the fake operations out! (Sigma = 20, threshold = 0.5 * global min/max)**  
+
+<div  align="center">    
+<img src="http://7xro3y.com1.z0.glb.clouddn.com/largerscale.png" width = "620" height = "400"/>  
 </div> 
 
 
