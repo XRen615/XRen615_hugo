@@ -7,61 +7,71 @@ image = ""
 menu = ""
 share = true
 slug = "edge_detection"
-tags = ["noise reduction", "edge detection","feature selection"]
-title = "Discovery the motivation of occupants' behavior from electricity consumption signal"
+tags = ["Noise reduction", "Edge detection","Feature selection"]
+title = "Discovery the motivation of behavior from electricity consumption signal"
 
 +++
 
 ##### Key Points  
 
-This report elaborates how to analyze the motivation of people's behavior from the electricity consumption signal and other data.  
+This chapter briefly elaborates how to analyze the motivation of people's operation on a system from the system electricity consumption signal and other data.  
 
+- **Objective**: understand how, and why occupants interact with the system.
 - **System**: ventilation system in passive houses with adjustable flow rate option.  
-- **Objective**: understand how, and why occupants interact with the system.   
-- **Raw data**: electricity consumption signal; environment sensor records (temperature, humidity, CO2 etc.); 3-min interval, 2 years (2013-2015)  
-- **Technique**: Noise reduction (Gaussian filter); Edge detection (1st derivative Gaussian filter), Feature selection (L1-penalized logistic regression)
+- **Raw data**: electricity consumption signal; environment sensor records (temperature, humidity, CO2 etc.); 3-min interval * 2 years (2013-2015): 325946 rows × 25 features.  
+- **Technique**: Noise reduction (Gaussian filter); Edge detection (1st derivative Gaussian filter), Feature selection (L1-penalized logistic regression, recursive feature elimination)
 
-Below **Figure 1** shows the overall work flow.  
-
-<div  align="center">    
-<img src="http://7xro3y.com1.z0.glb.clouddn.com/flowchart.png" width = "630" height = "320"/>  
-</div>  
-
-(1) After preprocessing and cleaning, start with the system electricity consumption signal, e.g. **Figure 2** below. First thing to do is filtering the noise (caused by wind etc. or system itself) and "fake operation" (status change with too-short duration). 
+Below **Figure 1** shows the overall pipeline I designed.  
 
 <div  align="center">    
-<img src="http://7xro3y.com1.z0.glb.clouddn.com/pulsedemo_noted.png" width = "620" height = "150"/>  
+<img src="http://7xro3y.com1.z0.glb.clouddn.com/flowchartbig.png" width = "800" height = "400"/>  
+</div>
+ 
+(1) After essential preprocessing and cleaning (NaNs are backfilled), start with a system electricity consumption signal like **Figure 2** below. A sudden change in the signal could imply the occupants' interaction with the system (e.g. once the occupant turn the flow rate into a higher option there should be a steep increasing edge on the electricity consumption signal). First thing to do is filtering out the noise (caused by wind etc. or system itself) and "fake operation" (status change with too-short duration). 
+
+<div  align="center">    
+<img src="http://7xro3y.com1.z0.glb.clouddn.com/pulsedemo_notedbig.png" width = "620" height = "150"/>  
 </div>  
 
-(2) After a finely-tuned **1st derivative Gaussian filter**, the "real operations" would be marked out, like shown in **Figure 3** below  
+(2) Through a finely-tuned **1st derivative Gaussian filter**, the noise and "fake operation" could be filtered out and the valid operations would be marked out, like shown in **Figure 3** below.   
+
+<div  align="center">    
+<img src="http://7xro3y.com1.z0.glb.clouddn.com/demo0.png" width = "620" height = "150"/>  
+</div> 
+
+<div  align="center">    
+<img src="http://7xro3y.com1.z0.glb.clouddn.com/demo1.png" width = "620" height = "150"/>  
+</div> 
 
 <div  align="center">    
 <img src="http://7xro3y.com1.z0.glb.clouddn.com/finertune.png" width = "620" height = "150"/>  
 </div>  
 
-(3) Then the marked data would undergo an **undersampling** process since the dataset is  skewed (The no. of records with 'no operation' is far more than ones with 'operation: increase' or 'operation: decrease')  
+(3) Then the marked data set would undergo an **undersampling** process since the dataset is now skewed (The no. of records marked with 'no operation' is far more than ones with operation, either increase or decrease). The undersampling process ensures the data set has balanced scales with each class, for the effectiveness of following classification algorithm.  
 
-(4) After undersampling, the training set would be **normalized** and then fed into a **L1-penalized logistic regression classifier**. Since linear models penalized with the L1 norm have sparse solutions i.e. many of their estimated coefficients are zero, it could be used for feature selection purpose. **Figure 4** below shows an example of the coefficients output in a certain experiment.  
+(4) After undersampling, the training set would be **normalized** and then fed into a **L1-penalized logistic regression classifier**. Since linear model penalized with L1 norm has sparse solutions i.e. many of its estimated coefficients would be zero, it could be used for feature selection purpose. **Figure 4** below shows an example of the coefficients output in a certain experiment.  
 
 <div  align="center">    
-<img src="http://7xro3y.com1.z0.glb.clouddn.com/L1.png" width = "600" height = "400"/>  
+<img src="http://7xro3y.com1.z0.glb.clouddn.com/L1.png" width = "700" height = "430"/>  
 </div> 
 
-Then the logistic regression runs repeatedly to make a **recursive feature elimination**. At last the most informative feature combination (judged by cross-validation accuracy) for this case could be determined, like below **Figure 5**  shows: these features implies the occupant's motivation for his/her behavior.
+Then the logistic regression runs repeatedly to make a **recursive feature elimination** (first, the estimator is trained on the initial set of features and weights are assigned to each one of them. Then, features whose absolute weights are the smallest are pruned from the current set features). At last, the most informative feature combination (judged by cross-validation accuracy) in this case could be determined, like below **Figure 5**  shows: these features implies this occupant's motivation for his/her behavior.
 
 <div  align="center">    
-<img src="http://7xro3y.com1.z0.glb.clouddn.com/REFCV.png" width = "400" height = "280"/>  
+<img src="http://7xro3y.com1.z0.glb.clouddn.com/REFCV.png" width = "500" height = "340"/>  
 </div>  
 
-(5) The results from different occupants implies there are different kind of people: some of them with strong "time pattern" while others are more sensitive to indoor temperatures etc. A **K-Means clustering** could help us group the occupants into different user profiles.  
+(5) Repeat the process above for different occupants. The results imply there are different kinds of people since their "best feature combination" vary a lot: e.g. some of them are with strong "time pattern" while others may be more sensitive to indoor environment, like temperature etc. A **K-Means clustering** could help us demonstrate this by grouping the occupants into different user profiles.  
 
 <div  align="center">    
-<img src="http://7xro3y.com1.z0.glb.clouddn.com/motivationdistribution.png" width = "400" height = "300"/>  
+<img src="http://7xro3y.com1.z0.glb.clouddn.com/motivationdistribution.png" width = "600" height = "450"/>  
 </div> 
 
----
+---  
 
-#### Technical Details: Noise reduction & Edge detection 
+**From here below is technical log regarding relevant theory and code to realize the whole process.**
+
+#### Technical Details: Noise reduction & Edge detection  
 
 ##### Background  
 
@@ -196,7 +206,7 @@ In practice, it is usually needed to use different tailored tune strategies for 
 
 
 
-#### Reference  
+##### Reference  
 
 - [Scale Space wiki](https://en.wikipedia.org/wiki/Scale_space) 
 
@@ -210,7 +220,217 @@ In practice, it is usually needed to use different tailored tune strategies for 
 
 ---
 
-#### Technical Details: Feature selection
+#### Technical Details: Feature selection  
+
+Before feature selection I made an undersampling to the data set to ensure every class shares a balanced weight in the whole dataset (before which the ratio is something like 150,000 no operation, 400 increase, 400 decrease).  
+
+The feature selection process is carried out in Python with scikit-learn. First each feature in the data set need to be standardized since the objective function of the l1 regularized linear model we use in this case assumes that all features are centered on zero and have variance in the same order. If a feature has a significantly lager scale or variance compared to others, it might dominate the objective function and make the estimator unable to learn from other features correctly as expected. In this case I used sklearn.preprocessing.scale() to standardize each feature to zero mean and unit variance.  
+
+Then the standardized data set was fed into a recursive feature elimination with cross-validation (REFCV) loop with a L1-penalized logistic regression kernel since linear models penalized with the L1 norm have sparse solutions: many of their estimated coefficients are zero, which could be used for feature selection purpose.  
+
+Below is the main part of the coding script for this session (ipynb format).  
+
+
+##### Feature selection after Gaussian filter  
+
+	import matplotlib.pyplot as plt
+	%matplotlib inline
+	import numpy as np
+	import pandas as pd
+	import seaborn as sns
+	import math
+
+**Data Loading**
+
+
+```
+ventpos = pd.read_csv("/Users/xinyuyangren/Desktop/1demo.csv")
+ventpos = ventpos.fillna(method='backfill')
+ventpos.head()
+ventpos.op.value_counts()
+```
+
+**UnderSampling**
+
+
+```
+sample_size = math.ceil((sum(ventpos.op == 1) + sum(ventpos.op == -1))/2)
+sample_size
+noop_indices = ventpos[ventpos.op == 0].index
+noop_indices
+random_indices = np.random.choice(noop_indices, sample_size, replace=False)
+random_indices
+noop_sample = ventpos.loc[random_indices]
+up_sample = ventpos[ventpos.op == 1]
+down_sample = ventpos[ventpos.op == -1]
+op_sample = pd.concat([up_sample,down_sample])
+op_sample.head()
+```
+
+**Feature selection: up operation**
+
+
+```
+undersampled_up = pd.concat([up_sample,noop_sample])
+undersampled_up.head()
+#generate month/hour attribute from datetime string  
+undersampled_up.dt = pd.to_datetime(undersampled_up.dt)
+t = pd.DatetimeIndex(undersampled_up.dt)
+hr = t.hour
+undersampled_up['HourOfDay'] = hr
+month = t.month
+undersampled_up['Month'] = month
+year = t.year
+undersampled_up['Year'] = year
+undersampled_up.head()
+for col in undersampled_up:
+    print col
+```
+
+
+```
+def remap(x):
+    if x == 't':
+        x = 0
+    else:
+        x = 1
+    return x
+
+for col in ['wc_lr', 'wc_kitchen', 'wc_br3', 'wc_br2', 'wc_attic']:
+    w = undersampled_up[col].apply(remap)
+    undersampled_up[col] = w
+undersampled_up.head()
+openwin = undersampled_up.wc_attic + undersampled_up.wc_br2 + undersampled_up.wc_br3 + undersampled_up.wc_kitchen + undersampled_up.wc_lr
+undersampled_up['openwin'] = openwin;
+undersampled_up = undersampled_up.drop(['wc_lr', 'wc_kitchen', 'wc_br3', 'wc_br2', 'wc_attic','Year','dt','pulse_channel_ventilation_unit'],axis = 1)
+undersampled_up.head()
+for col in undersampled_up:
+    print col
+```
+
+**Logistic Regression**
+
+
+```
+from sklearn.linear_model import LogisticRegression
+from sklearn.feature_selection import SelectFromModel
+```
+
+
+```
+#shuffle the order
+undersampled_up = undersampled_up.reindex(np.random.permutation(undersampled_up.index))
+undersampled_up.head()
+```
+
+
+```
+y = undersampled_up.pop('op')
+```
+
+
+```
+# Columnwise Normalizaion
+from sklearn import preprocessing
+X_scaled = pd.DataFrame()
+for col in undersampled_up:
+    X_scaled[col] = preprocessing.scale(undersampled_up[col])
+X_scaled.head()
+```
+
+
+```
+from sklearn import cross_validation
+lg = LogisticRegression(penalty='l1',C = 0.1)
+scores = cross_validation.cross_val_score(lg, X_scaled, y, cv=10)
+#The mean score and the 95% confidence interval of the score estimate
+print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+```
+
+
+```
+clf = lg.fit(X_scaled, y)
+```
+
+
+```
+plt.figure(figsize=(12,9))
+y_pos = np.arange(len(X_scaled.columns))
+plt.barh(y_pos,abs(clf.coef_[0]))
+plt.yticks(y_pos + 0.4,X_scaled.columns)
+plt.title('Feature Importance from Logistic Regression')
+```
+
+**REFCV FEATURE OPTIMIZATIN**
+
+
+```
+from sklearn.feature_selection import RFECV
+```
+
+
+```
+selector = RFECV(lg, step=1, cv=10)
+selector = selector.fit(X_scaled, y)
+mask = selector.support_ 
+mask
+```
+
+
+```
+selector.ranking_
+```
+
+
+```
+X_scaled.keys()[mask]
+```
+
+
+```
+selector.score(X_scaled, y)
+```
+
+
+```
+X_selected = pd.DataFrame()
+for col in X_scaled.keys()[mask]:
+    X_selected[col] = X_scaled[col]
+X_selected.head()
+```
+
+
+```
+scores = cross_validation.cross_val_score(lg, X_selected, y, cv=10)
+#The mean score and the 95% confidence interval of the score estimate
+scores
+```
+
+
+```
+print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+```
+
+
+```
+clf_final = lg.fit(X_selected,y)
+```
+
+
+```
+y_pos = np.arange(len(X_selected.columns))
+plt.barh(y_pos,abs(clf_final.coef_[0]))
+plt.yticks(y_pos + 0.4,X_scaled.columns)
+plt.title('Feature Importance After RFECV Logistic Regression')
+```
+  
+
+##### Reference  
+
+- [sklearn standardization](http://scikit-learn.org/stable/modules/preprocessing.html)  
+- [undersampling](https://en.wikipedia.org/wiki/Oversampling_and_undersampling_in_data_analysis)  
+- [sklearn feature selection](http://scikit-learn.org/stable/modules/feature_selection.html)  
+- [sklearn REFCV](http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.RFECV.html#sklearn.feature_selection.RFECV)
 
 
 

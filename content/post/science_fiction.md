@@ -10,7 +10,7 @@ image = ""
 menu = ""
 share = true
 slug = "scifi_chn"
-tags = ["literature"]
+tags = ["Literature"]
 
 +++
 

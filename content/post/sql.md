@@ -13,7 +13,7 @@ title = "SQL Notes"
 +++
 
 (This is the note for the SQL training course on Codecademy.com)  
-####Some basic recipes
+#### Some basic recipes  
 
 	SELECT DISTINCT  
 	
@@ -40,7 +40,8 @@ specifies that the statement is going to be a query that returns unique values i
 	SELECT * FROM Persons
 	LIMIT 5;  
 	
-####Using aggregate functions to perform calculations
+#### Using aggregate functions to perform calculations  
+
 Aggregate functions combine multiple rows together to form a single value of more meaningful information.  
 
 **COUNT()**: a function that takes the name of a column as an argument and counts the number of rows where the column is not NULL. Here, we want to count every row so we pass * as an argument.  
@@ -66,7 +67,7 @@ Aggregate functions combine multiple rows together to form a single value of mor
 
 **ROUND()**: a function that takes a column name and an integer as an argument. It rounds the values in the column to the number of decimal places specified by the integer.  
 
-####Query multiple tables that have relationships with each other  
+#### Query multiple tables that have relationships with each other  
 
 **primary key**  
 

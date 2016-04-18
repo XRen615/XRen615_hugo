@@ -7,7 +7,7 @@ image = ""
 menu = ""
 share = true
 slug = "reading_note1"
-tags = ["Machine learning", "reading notes"]
+tags = ["Machine learning", "Reading notes"]
 title = "Reading Note: Building machine learning systems with python"
 
 +++

@@ -1,24 +1,59 @@
-BaseUrl= "http://xren615.github.io/"
-LanguageCode= "en-US"
-Title= "Square Inch"
-#paginate = 5
-DisqusShortname = "xren615"
-Copyright = "All rights reserved - 2016"
+baseurl = "http://xren615.github.io"
+languageCode = "en-us"
+title = "SQUARE INCH"
+theme = "blackburn"
+author = "X.Ren"
+copyright = "&copy; 2016. All rights reserved."
 canonifyurls = true
-theme = "hugo-theme-air"
+paginate = 10
+
+[indexes]
+  tag = "tags"
+  topic = "topics"
 
 [params]
-  description = "收古今絕藝置我山窗"
-  cover = "images/03928.jpg"
-  author = "X.Ren"
-  authorlocation = "Nederland"
-  authorwebsite = "https://nl.linkedin.com/in/xinyuyangren"
-  bio= "收古今絕藝置我山窗"
-  logo = "images/V.png"
-  # googleAnalyticsUserID = "UA-64985747-4"
-  # Optional RSS-Link, if not provided it defaults to the standard index.xml
-  # RSSLink = "http://feedly.com/i/subscription/feed/https://syui.github.io/atom.xml"
-  githubName = "rickren615"
-  # twitterName = "syui__"
-  # set true if you are not proud of using Hugo (true will hide the footer note "Proudly published with HUGO.....")
-  hideHUGOSupport = false
+  # Shown in the home page
+  subtitle = "CROSS DISCIPLINE THOUGHTS FROM X.REN"
+  brand = "SQUARE INCH"
+  googleAnalytics = "UA-76515451-1"
+  disqus = "xren615"
+  # CSS name for highlight.js
+  highlightjs = "androidstudio"
+  dateFormat = "02 Jan 2006, 15:04"
+
+[menu]
+  # Shown in the side menu.
+  [[menu.main]]
+    name = "Home"
+    pre = "<i class='fa fa-home fa-fw'></i>"
+    weight = 0
+    identifier = "home"
+    url = "/"
+  [[menu.main]]
+    name = "Posts"
+    pre = "<i class='fa fa-list fa-fw'></i>"
+    weight = 1
+    identifier = "post"
+    url = "/post/"
+  [[menu.main]]
+    name = "About"
+    pre = "<i class='fa fa-user fa-fw'></i>"
+    weight = 2
+    identifier = "about"
+    url = "/about/"
+  [[menu.main]]
+    name = "Contact"
+    pre = "<i class='fa fa-phone fa-fw'></i>"
+    weight = 3
+    url = "/contact/"
+
+[social]
+  # Link your social networking accouns to the side menu
+  # by entering your username or ID.
+  #twitter = "https://500px.com/rubiconren"
+  #facebook = "*"
+  #instagram = "*"
+  github = "xren615"
+  #stackoverflow = "*"
+  linkedin = "xinyuyangren"
+  #500px = "https://500px.com/rubiconren"

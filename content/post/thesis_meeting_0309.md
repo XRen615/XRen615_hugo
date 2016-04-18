@@ -10,7 +10,7 @@ image = ""
 menu = ""
 share = true
 slug = "meeting0309"
-tags = ["master thesis"]
+tags = ["Master thesis"]
 
 +++
 

@@ -7,7 +7,7 @@ image = ""
 menu = ""
 share = true
 slug = "feature_reducing"
-tags = ["data science"]
+tags = ["data science","Feature Engineering"]
 title = "特征选择"
 
 +++
