@@ -13,7 +13,7 @@ paginate = 10
 
 [params]
   # Shown in the home page
-  subtitle = "CROSS DISCIPLINE THOUGHTS FROM X.REN"
+  subtitle = "CROSS-DISCIPLINE IS FUN!"
   brand = "SQUARE INCH"
   googleAnalytics = "UA-76515451-1"
   disqus = "xren615"
@@ -52,8 +52,8 @@ paginate = 10
   # by entering your username or ID.
   #twitter = "https://500px.com/rubiconren"
   #facebook = "*"
-  #instagram = "*"
+  instagram = "rubiconren"
   github = "xren615"
   #stackoverflow = "*"
   linkedin = "xinyuyangren"
-  #500px = "https://500px.com/rubiconren"
+  #500px = "rubiconren"

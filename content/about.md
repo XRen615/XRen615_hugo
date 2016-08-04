@@ -5,10 +5,10 @@ sidemenu = "true"
 description = "About me and this site"
 +++  
 
-X.Ren is a(n) reader/engineer/photographer. Now work as a data scientist in a certain corner of this world.
+X.Ren see himself as a(n) reader/engineer/photographer. Now he works as a data scientist.  
 
-So this blog would contain comments upon literature works/technical issues/photography and other pieces of art.  
+This blog would contain his comments upon literature works/technical issues/photography and other pieces of art.  
 
-Feel free to contact me via xinyuyangren@gmail.com if needed. 
+Feel free to contact him via xinyuyangren@gmail.com if needed. 
 
 Thanks for visiting.

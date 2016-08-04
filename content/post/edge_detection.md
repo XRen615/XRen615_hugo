@@ -8,7 +8,7 @@ menu = ""
 share = true
 slug = "edge_detection"
 tags = ["Noise reduction", "Edge detection","Feature selection"]
-title = "Discovery the motivation of behavior from electricity consumption signal"
+title = "A data-based approach for behavior motivation digging"
 
 +++
 
@@ -30,32 +30,35 @@ Below **Figure 1** shows the overall pipeline I designed.
 (1) After essential preprocessing and cleaning (NaNs are backfilled), start with a system electricity consumption signal like **Figure 2** below. A sudden change in the signal could imply the occupants' interaction with the system (e.g. once the occupant turn the flow rate into a higher option there should be a steep increasing edge on the electricity consumption signal). First thing to do is filtering out the noise (caused by wind etc. or system itself) and "fake operation" (status change with too-short duration). 
 
 <div  align="center">    
-<img src="http://7xro3y.com1.z0.glb.clouddn.com/pulsedemo_notedbig.png" width = "620" height = "150"/>  
+<img src="http://7xro3y.com1.z0.glb.clouddn.com/demo_original_noted%E5%89%AF%E6%9C%AC.jpg" />  
 </div>  
+
+In the previous research work before this study, researchers used to calibrate each position with fixed interval. E.g. in this case, positions with pulse no. fallen in [0,4] are assigned as ‘position 1’, while (4,8) for ‘position 2’ and pulse no. larger than 8 represents ‘position 3’. Follow this approach, the user operation frequency could be seriously over-estimated since both the noise (e.g. in circle 1) and ‘fake operations’ (e.g. in circle 2) are counted as effective user operation. In fact, in the previous report the researchers estimated this house with over 1,000 operations per year, which is apparently too much for a regular ventilation system controller. To make things worse, with the fixed-interval approach, for each house the intervals need to be decided case by case since the scope of the no. of pulse in different house may vary. In the next paragraphs, I will show how does the filter-based approach developed in this study solve all the issues mentioned above by automatically marking the effective operational edges and filtering out the noises and ‘fake operations’.  
 
 (2) Through a finely-tuned **1st derivative Gaussian filter**, the noise and "fake operation" could be filtered out and the valid operations would be marked out, like shown in **Figure 3** below.   
 
 <div  align="center">    
-<img src="http://7xro3y.com1.z0.glb.clouddn.com/demo0.png" width = "620" height = "150"/>  
-</div> 
-
-<div  align="center">    
-<img src="http://7xro3y.com1.z0.glb.clouddn.com/demo1.png" width = "620" height = "150"/>  
-</div> 
-
-<div  align="center">    
-<img src="http://7xro3y.com1.z0.glb.clouddn.com/finertune.png" width = "620" height = "150"/>  
+<img src="http://7xro3y.com1.z0.glb.clouddn.com/combine2%E5%89%AF%E6%9C%AC.jpg"/>  
 </div>  
+
+In the figure above, (a) is the raw signal of fan electricity consumption, with noise and fake operations; (b) shows the signal after the Gaussian filter, with which the signal is smoothed and the noise is reduced; (c) is the 1st derivative signal of (b), each peak here could imply an edge in (b), with a proper threshold, we can filter out the real operation edge we want in a certain sensitivity. (d) is the original signal with operation edge marked out from (c), it could be observed that the finely-tuned algorithm could automatically ignore the noise and fake operation, only mark the real operation edge we want.  
+
+With a lager scale in2 years, the operation detected could be presented in the **Figure 4** below, in which +1 represents increasing operation while -1 represents decreasing operation.  
+
+<div  align="center">    
+<img src="http://7xro3y.com1.z0.glb.clouddn.com/ventpos%20setting%20operation.png"/>  
+</div>  
+
 
 (3) Then the marked data set would undergo an **undersampling** process since the dataset is now skewed (The no. of records marked with 'no operation' is far more than ones with operation, either increase or decrease). The undersampling process ensures the data set has balanced scales with each class, for the effectiveness of following classification algorithm.  
 
-(4) After undersampling, the training set would be **normalized** and then fed into a **L1-penalized logistic regression classifier**. Since linear model penalized with L1 norm has sparse solutions i.e. many of its estimated coefficients would be zero, it could be used for feature selection purpose. **Figure 4** below shows an example of the coefficients output in a certain experiment.  
+(4) After undersampling, the training set would be **normalized** and then fed into a **L1-penalized logistic regression classifier**. Since linear model penalized with L1 norm has sparse solutions i.e. many of its estimated coefficients would be zero, it could be used for feature selection purpose. **Figure 5** below shows an example of the coefficients output in a certain experiment.  
 
 <div  align="center">    
 <img src="http://7xro3y.com1.z0.glb.clouddn.com/L1.png" width = "700" height = "430"/>  
 </div> 
 
-Then the logistic regression runs repeatedly to make a **recursive feature elimination** (first, the estimator is trained on the initial set of features and weights are assigned to each one of them. Then, features whose absolute weights are the smallest are pruned from the current set features). At last, the most informative feature combination (judged by cross-validation accuracy) in this case could be determined, like below **Figure 5**  shows: these features implies this occupant's motivation for his/her behavior.
+Then the logistic regression runs repeatedly to make a **recursive feature elimination** (first, the estimator is trained on the initial set of features and weights are assigned to each one of them. Then, features whose absolute weights are the smallest are pruned from the current set features). At last, the most informative feature combination (judged by cross-validation accuracy) in this case could be determined, like below **Figure 6**  shows: these features implies this occupant's motivation for his/her behavior.
 
 <div  align="center">    
 <img src="http://7xro3y.com1.z0.glb.clouddn.com/REFCV.png" width = "500" height = "340"/>  
@@ -66,6 +69,10 @@ Then the logistic regression runs repeatedly to make a **recursive feature elimi
 <div  align="center">    
 <img src="http://7xro3y.com1.z0.glb.clouddn.com/motivationdistribution.png" width = "600" height = "450"/>  
 </div> 
+
+In the figure above, the horizontal axis represents the importance of indoor environment in determining occupants’ behavior, while the vertical axis represents the importance of time-related factors. Three different types of occupants could be observed:  
+- Indoor environment sensitive occupants: house no. 2, 4, 6, 8  - Time sensitive occupants: house no.7, 9  - Mixed type occupants: houses no. 1, 3, 5, 10  
+The complexity of occupants’ behavioral pattern is demonstrated by the data analysis result. The Indoor environment sensitive occupants are more likely to interact with their ventilation control panel when they feel unsatisfied about the indoor comfort, while the time sensitive occupants are more likely to have fixed timetables for their behavior (e.g., as soon as they wake up or come back from work etc.) and there are also some people in between, as mixed-type occupants their behaviors are effected considerably by both factors in the same time.
 
 ---  
 
