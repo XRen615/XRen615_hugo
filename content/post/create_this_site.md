@@ -35,6 +35,7 @@ Graphics: Intel Iris Graphics 6100 1536 MB
 substitute *xxx* with the icon name you want (and ofc supported by FontAwesome), do not touch .Site.Params.xxx if you just want it simple.  
 - If you are not familiar with *markdown*, find the instruction regarding markdown syntax [here](http://www.jianshu.com/p/q81RER).  
 - Develope comment board with disqus: register a short name then fill it in the config file
+- Change the Square to superscript： edit /public/index.html, replace INCH2 with INCH<sup>2</sup> except for the <title> label.
 
 
 ### Paste some frequently-used order here:)  
