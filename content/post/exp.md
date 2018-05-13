@@ -1,16 +1,14 @@
 +++
+draft = false
+tags = ["experiments","A/B Testing"]
+date = "2018-04-13T01:30:00+08:00"
 author = "X.Ren"
 comments = true
-date = "2018-04-01T15:37:09+08:00"
-draft = false
-image = ""
-menu = ""
 share = true
 slug = "experiment"
-tags = ["A/B testing"]
-title = "Random Thoughts for A/B Testing at LinkedIn"
+title = "Random thoughts on A/B testing at LinkedIn"
 
-+++  
++++
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
@@ -20,7 +18,10 @@ Random thoughts about A/B testing came into my mind while working at LinkedIn.
 
 A/B测试正被越来越多的公司和科研机构使用，它能让决策告别『拍脑袋』，以实际的试验结果对比展示各个方案间的取舍，从而实现数据驱动的决策。LinkedIn作为业界最早以及最广泛使用A/B测试的科技公司之一，在方法论和工程实现上都有丰富的积累。本篇文章并非对其完整地论述，而是在日常工作中产生的随机总结和思考。  
 
-![strata](http://7xro3y.com1.z0.glb.clouddn.com/strata.jpeg "LinkedIn ranked top at Strata for A/B experiments")
+<div  align="center">    
+<img src="http://7xro3y.com1.z0.glb.clouddn.com/strata.jpeg" width = "500" height = "350"/>  
+</div>  
+
 ***  
 
 ### Statistical ABC  
@@ -145,15 +146,3 @@ http://7xro3y.com1.z0.glb.clouddn.com/metrics.png
 - hashid的工作原理
 - Lix kafka tracking frame
 - 样本比失衡（Sample Size Ratio Mismatch, SSRM）
-
-
-
-
-
-
-
-
-
-
-
-

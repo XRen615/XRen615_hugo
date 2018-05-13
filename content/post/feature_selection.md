@@ -8,7 +8,7 @@ menu = ""
 share = true
 slug = "feature_reducing"
 tags = ["data science","Feature selection"]
-title = "特征选择：一份简明指南"
+title = "A Simple Summary on Feature Selection"
 
 +++
 
