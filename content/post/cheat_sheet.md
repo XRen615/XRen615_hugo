@@ -1,16 +1,12 @@
 +++
 date = "2017-03-02T17:40:40+08:00"
-description = ""
-keywords = []
 title = "Python Data Engineering Cheat Sheet"
 author = "X.Ren"
 comments = true
 draft = false
-image = ""
-menu = ""
 share = true
-slug = "cheatSheet"
-tags = [""]
+slug = "python_cheat_sheet"
+tags = ["python","cheat sheet"]
 
 +++
 
